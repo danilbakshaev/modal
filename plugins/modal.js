@@ -30,7 +30,7 @@ function _createModal(options) {
   const modal = document.createElement('div')
   modal.classList.add('vmodal')
   modal.insertAdjacentHTML('afterbegin', `
-    <div class="modal-overlay" data-close="true">
+    <div class="modal-overlay">
       <div class="modal-window" style="width:${options.width || DEFAULT_WIDTH}">
         <div class="modal-header">
           <span class="modal-title">${options.title || 'Окно'}</span>
@@ -68,6 +68,9 @@ $.modal = function(options) {
       setTimeout(() => {
         closing = false
         $modal.classList.remove('hide')
+        if (typeof options.onClose === 'function') {
+          options.onClose()
+        }
       }, ANIMATION_SPEED);
     },
   }
